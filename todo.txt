@@ -1,0 +1,21 @@
+[x] refactor file system
+[x] refactor for SOLID principle
+[x] add db migration setup
+[x] add Makefile
+[x] add hot-reload
+[x] postgress connection
+
+[]  logging setup - generate daily logs with max size cap
+[]  Database with GORM
+[]  kafka integration
+[]  enforce code linting
+[]  add tests
+    [] Click on one button should be able to run all tests together instead of having to run test one by one
+[]  swagger
+[]  authentication
+    [] middleware
+    [] integrate oauth client
+[]  3rd party api calls
+[]  config dev/prod/staging
+[]  mqtt connection
+[]  cronjob

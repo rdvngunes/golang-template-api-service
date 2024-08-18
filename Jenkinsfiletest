@@ -1,0 +1,68 @@
+pipeline {
+    // install golang 1.18 on Jenkins node
+    agent any
+    tools {
+        go "go-1.18"
+    }
+    environment {
+        GO114MODULE = "on"
+        CGO_ENABLED = 0
+        GOPATH = "${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}"
+    }
+    parameters {
+        //Jenkins jobs execution parameters
+        string(name: 'sshServer', defaultValue: 'ubuntu@52.72.229.45', description: 'Deployment Server (ubuntu@xx.xx.xx.xx)')
+        string(name: 'moduleName', defaultValue: 'golang-template-api-service', description: 'Module name defined in go.mod and it is the binary file name for deployment')
+        string(name: 'settings', defaultValue: './app/config/settings/', description: 'Configuration file for deployment')
+        string(name: 'keyStore', defaultValue: './app/config/keystore/', description: 'Configuration file for deployment')
+        string(name: 'swagger', defaultValue: './docs/', description: 'swagger file for deployment')
+        string(name: 'deploymentPath', defaultValue: '/var/golangtemplates/services/golang-template-api-service/', description: 'Absolution deployment file path in the server')
+        string(name: 'serviceName', defaultValue: 'golang-template-api-service.service', description: 'Systemd service name (e.g. xxxxxxxxx.service')
+    }
+    stages {
+        stage("unit-test") {
+            steps {
+					echo "UNIT TEST EXECUTION STARTED"
+                //sh "go test ./..."
+            }
+        }
+        stage("functional-test") {
+            steps {
+                echo "FUNCTIONAL TEST EXECUTION STARTED"
+                echo "Not yet implemented"
+                //TODO
+            }
+        }
+        stage("build") {
+            steps {
+                echo "BUILD EXECUTION STARTED"
+                sh "go version"
+                sh "set"
+                sh "go get ./..."
+                sh "go build -o golang-template-api-service"
+            }
+        }
+        stage("deploy") {
+            steps {
+                echo "DEPLOY (SSH: ${params.sshServer}) TO DEV STARTED"
+                sshagent (credentials: ['soramate']) {
+                    //Stop the systemd service
+                    sh "ssh -o StrictHostKeyChecking=no -T ${params.sshServer} sudo systemctl stop ${params.serviceName}"
+                    //Copy program
+                    sh "scp -o StrictHostKeyChecking=no ${params.moduleName} ${params.sshServer}:${params.deploymentPath}"
+                    //Copy swagger jso/appn
+                   // sh "scp -o StrictHostKeyChecking=no ./app/docs/swagger.json ${params.sshServer}:${params.deploymentPath}docs/"
+                    //Copy config
+                   
+                    sh "scp -o StrictHostKeyChecking=no -r ${params.keyStore} ${params.sshServer}:${params.deploymentPath}app/config" 
+                    sh "scp -o StrictHostKeyChecking=no -r ${params.settings} ${params.sshServer}:${params.deploymentPath}app/config"
+                    sh "scp -o StrictHostKeyChecking=no -r ${params.swagger} ${params.sshServer}:${params.deploymentPath}"
+                    //Chmod for service user execution
+                    sh "ssh -o StrictHostKeyChecking=no -T ${params.sshServer} sudo chmod 775 ${params.deploymentPath}${params.moduleName}"
+                    //Start the systemd service
+                    sh "ssh -o StrictHostKeyChecking=no -T ${params.sshServer} sudo systemctl start ${params.serviceName}"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+App:
+  Port: 3000 # keep 3000 else change in docker file also
+Database:
+  Host: [[Ip]]
+  Port: [[Port]]
+  User: [[User]]
+  Password: [[Password]]
+  DBName: [[DBName]]
+Auth:
+  SecretKeyPath: [[SecretKeyPath]]
+Services:
+  TestServiceUrl: [[TestServiceUrl]]
+AmazonStorage:
+  AccessKey:  [[AccessKey]]
+  SecretKey:  [[SecretKey]]
+  BucketUrl:  [[BucketUrl]]
+  BucketName:  [[BucketName]]
+  Region:  [[Region]]
+  ObjectKey:  [[ObjectKey]]
+  AllowedExtensions: [".jpg",".jpeg", ".png",".kml",".PNG", ".JPG", ".JPEG", ".KML"]
+  FileSizeLimit: 5000000
