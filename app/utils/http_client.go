@@ -56,7 +56,7 @@ func (c *HTTPClient) Get(endpoint string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("Received UserDetails: %s\n", string(body))
+	fmt.Printf("Received Details: %s\n", string(body))
 
 	if resp.StatusCode != http.StatusOK {
 		return string(body), fmt.Errorf("request failed with status: %s, response: %s", resp.Status, string(body))

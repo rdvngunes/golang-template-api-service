@@ -5,16 +5,16 @@ type UserRole int
 
 // Define enum values using constants and iota
 const (
-	Operator UserRole = iota
-	Reviever
+	Admin UserRole = iota
+	Regular
 )
 
 func (s UserRole) String() string {
 	switch s {
-	case Operator:
-		return "Operator"
-	case Reviever:
-		return "Reviever"
+	case Admin:
+		return "Admin"
+	case Regular:
+		return "Regular"
 	default:
 		return "Unknown"
 	}

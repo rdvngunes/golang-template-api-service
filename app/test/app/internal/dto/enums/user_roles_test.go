@@ -10,8 +10,8 @@ func TestUserRoleString(t *testing.T) {
 		role     enums.UserRole
 		expected string
 	}{
-		{enums.Operator, "Operator"},
-		{enums.Reviever, "Reviever"},
+		{enums.Admin, "Admin"},
+		{enums.Regular, "Regular"},
 		{enums.UserRole(-1), "Unknown"},
 	}
 

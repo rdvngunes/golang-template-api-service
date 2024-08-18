@@ -12,7 +12,6 @@ type User struct {
 	Email          *string   `gorm:"column:email;default:''"`
 	Role           *string   `gorm:"column:role;default:''"`
 	UserType       *string   `gorm:"column:usertype;default:''"`
-	ReOC           *string   `gorm:"column:reoc;default:''"`
 	ProfilePicture *string   `gorm:"column:profilepicture;default:''"`
 	IsActive       *bool     `gorm:"column:isactive;default:true"`
 	IsDeleted      *bool     `gorm:"column:isdeleted;default:false"`

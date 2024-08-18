@@ -16,7 +16,6 @@ func TestUserStructInitialization(t *testing.T) {
 	email := "john.doe@example.com"
 	role := "Admin"
 	userType := "TypeA"
-	reoc := "REOC123"
 	profilePicture := "http://example.com/profile.jpg"
 	isActive := true
 	isDeleted := false
@@ -30,7 +29,6 @@ func TestUserStructInitialization(t *testing.T) {
 		Email:          &email,
 		Role:           &role,
 		UserType:       &userType,
-		ReOC:           &reoc,
 		ProfilePicture: &profilePicture,
 		IsActive:       &isActive,
 		IsDeleted:      &isDeleted,
@@ -44,7 +42,6 @@ func TestUserStructInitialization(t *testing.T) {
 	assert.Equal(t, &email, userData.Email, "Email should match")
 	assert.Equal(t, &role, userData.Role, "Role should match")
 	assert.Equal(t, &userType, userData.UserType, "UserType should match")
-	assert.Equal(t, &reoc, userData.ReOC, "ReOC should match")
 	assert.Equal(t, &profilePicture, userData.ProfilePicture, "ProfilePicture should match")
 	assert.Equal(t, &isActive, userData.IsActive, "IsActive should be true")
 	assert.Equal(t, &isDeleted, userData.IsDeleted, "IsDeleted should be false")
@@ -62,7 +59,6 @@ func TestUserDefaultValues(t *testing.T) {
 	assert.Nil(t, userData.Email, "Email should be nil by default")
 	assert.Nil(t, userData.Role, "Role should be nil by default")
 	assert.Nil(t, userData.UserType, "UserType should be nil by default")
-	assert.Nil(t, userData.ReOC, "ReOC should be nil by default")
 	assert.Nil(t, userData.ProfilePicture, "ProfilePicture should be nil by default")
 	assert.Nil(t, userData.IsActive, "IsActive should be nil by default")
 	assert.Nil(t, userData.IsDeleted, "IsDeleted should be nil by default")

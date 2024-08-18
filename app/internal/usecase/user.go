@@ -34,7 +34,6 @@ func (u *UserUsecase) CreateUser(user user.UserRequest) (*entity.User, error) {
 		Role:     &user.UserRole,
 		UserType: &user.UserType,
 		Email:    &emailLower,
-		ReOC:     &user.ReOC,
 	}
 	return u.UserRepository.CreateUser(newUser)
 }
@@ -93,9 +92,6 @@ func (u *UserUsecase) GetUserDetails(userId uuid.UUID, token string) (*user.User
 	} else {
 		userDetails.ProfilePicture = profilePictureResponse.ObjectURL
 	}
-
-	userDetails.UserSoraRole = *user.Role
-	userDetails.ReOC = *user.ReOC
 	return &userDetails, nil
 }
 
@@ -161,7 +157,6 @@ func (u *UserUsecase) UpdateUser(userId uuid.UUID, userStatus user.UserStatusUpd
 		LastName:  userStatus.LastName,
 		Email:     userDetails.Email,
 		Phone:     userStatus.Phone,
-		AnspID:    userDetails.AnspID,
 		UserID:    userDetails.UserId,
 		Roles:     transformToRoleNames(userDetails),
 		Country:   userStatus.Country,
